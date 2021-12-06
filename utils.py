@@ -2,6 +2,45 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import tensorflow as tf
+import cv2
+
+class EmotionPredictor():
+    def __init__(self, path = "models/efficientB0_Affect.tflite"):
+        self.interpreter = tf.lite.Interpreter(model_path=path)
+        self.interpreter.allocate_tensors()
+        
+        self.input_details = self.interpreter.get_input_details()
+        self.output_details = self.interpreter.get_output_details()
+    
+    def process(self, image):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = tf.image.resize(image, (224,224), preserve_aspect_ratio=True)
+        image = np.reshape(image, (1, 224, 224, 3))
+        return image
+    
+    def get_label(self, i):
+        mapper = {
+        0: 'Neutral',
+        1: 'Happy',
+        2: 'Sad',
+        3: 'Surprise',
+        4: 'Fear',
+        5: 'Disgust',
+        6: 'Anger',
+        7: 'Contempt'
+             }
+        
+        return mapper[i]
+    
+    def predict(self, x):
+        x = self.process(x)
+        self.interpreter.set_tensor(self.input_details[0]['index'], x)
+        self.interpreter.invoke()
+        output_data = self.interpreter.get_tensor(self.output_details[1]['index'])
+        idx = np.argmax(output_data[0])
+        
+        return self.get_label(idx), round(output_data[0][idx]*100, 2)
 
 def plot_learning_curves(history, name, metric = 'sparse_categorical_accuracy', save = None):
     fig, ax = plt.subplots(1, 2, figsize=(12, 6))
@@ -62,4 +101,5 @@ def build_data(path = 'train', rebuild = False):
     
     df = pd.DataFrame(data)
     df.to_csv(f'data/affect/processed_{path}.csv')
+    
     return df
