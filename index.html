@@ -3,9 +3,9 @@
   <head>
     <title>opencv.js sandbox</title>
     <meta charset="UTF-8" />
-    <script src="https://docs.opencv.org/master/opencv.js"></script>
-    <script src="https://docs.opencv.org/master/utils.js"></script>
     <script src="src/js/index.js"></script>
+    <script async src="https://docs.opencv.org/master/opencv.js" onload ='openCVReady()'></script>
+    <script src="https://docs.opencv.org/master/utils.js"></script>
   </head>
 
   <body>
@@ -13,6 +13,6 @@
       <video type = "hidden" width= "720" height="480" id="videoInput"></video>
       <canvas width = "720" height="480" id="canvas"></canvas>
     </div>
-    <script type="text/javascript">openCVReady()</script>
+    <!-- <script type="text/javascript">openCVReady()</script> -->
   </body>
 </html>
