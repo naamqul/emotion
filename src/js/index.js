@@ -27,6 +27,7 @@ function openCVReady() {
     let gray = new cv.Mat();
     let faces = new cv.RectVector();
     let utils = new Utils("errorMessage")
+    let sample = new cv.Mat();
 
     let classifier = new cv.CascadeClassifier();
     let faceCascadeFile = 'haarcascade_frontalface_default.xml';
@@ -45,9 +46,15 @@ function openCVReady() {
         let msize = new cv.Size(0, 0);
 
         try {
-            classifier.detectMultiScale(gray, faces, 1.1, 3, 0, msize, msize); 
+            classifier.detectMultiScale(gray, faces, 1.15, 3, 0, msize, msize); 
             for (let i = 0; i < faces.size(); ++i) {
                 let face = faces.get(i);
+                let roiSrc = src.roi(face);
+                cv.cvtColor(roiSrc, sample, cv.COLOR_RGBA2RGB, 0);
+                sample = tf.fromPixels(sample).resizeBilinear([224, 224, 3])
+                sample.reshape([1,224,224,3])
+                let outputTensor = emotionModel.predict(sample) as tf.Tensor;
+                console.log(outputTensor)
                 let point1 = new cv.Point(face.x, face.y);
                 let point2 = new cv.Point(face.x + face.width, face.y + face.height);
                 cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
