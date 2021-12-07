@@ -16,7 +16,7 @@ function openCVReady() {
     video.style.display = "none"
 
     //Initialize Necessary Variables
-    const FPS = 60
+    const FPS = 30
     let height = video.height
     let width = video.width
 
@@ -29,10 +29,10 @@ function openCVReady() {
     let utils = new Utils("errorMessage")
 
     let classifier = new cv.CascadeClassifier();
-    let faceCascadeFile = './src/js/haarcascade_frontalface_default.xml';
+    let faceCascadeFile = 'haarcascade_frontalface_default.xml';
 
     utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
-    classifier.load(faceCascadeFile);
+        classifier.load(faceCascadeFile);
         console.log("Cascade XML Loaded");
     });
 
