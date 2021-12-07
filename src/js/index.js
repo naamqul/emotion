@@ -1,7 +1,3 @@
-async function loadModel() {
-    return await tflite.loadTFLiteModel('models/efficientB0_Affect.tflite');
-}
-
 function openCVReady() {
   cv['onRuntimeInitialized']=()=>{
     // do all your work here
@@ -39,7 +35,12 @@ function openCVReady() {
         classifier.load(faceCascadeFile);
         console.log("Cascade XML Loaded");
     });
-    var emotionModel = loadModel();
+    var emotionModel = '';
+    
+    tflite.loadTFLiteModel('models/efficientB0_Affect.tflite').then((loadedModel) => {
+      emotionModel = loadedModel;
+  });
+
     function processVideo() {
         let begin = Date.now();
         cap.read(src);
@@ -68,11 +69,11 @@ function openCVReady() {
                 let point2 = new cv.Point(face.x + face.width, face.y + face.height);
                 cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
             }
-    } catch(error) {
+        } catch(error) {
         // console.error(error)
     }
-        
-        cv.imshow("canvas", dst);
+
+    cv.imshow("canvas", dst);
     // schedule next one.
     let delay = 1000/FPS - (Date.now() - begin);
     setTimeout(processVideo, delay);
