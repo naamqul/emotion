@@ -51,8 +51,9 @@ function openCVReady() {
                 let face = faces.get(i);
                 let roiSrc = src.roi(face);
                 cv.cvtColor(roiSrc, sample, cv.COLOR_RGBA2RGB, 0);
-                sample = tf.browser.fromPixels(sample)
-                sample = tf.image.resizeBilinear(sample, [224, 224, 3])
+                let dsize = new cv.Size(224, 224);
+                cv.resize(sample, sample, dsize, 0, 0, cv.INTER_AREA);
+                sample = tf.tensor(sample.data)
                 sample = tf.reshape(sample, [1,224,224,3]);
                 let outputTensor = emotionModel.predict(sample);
                 console.log(outputTensor);
