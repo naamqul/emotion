@@ -1,3 +1,7 @@
+async function loadModel() {
+    return await tflite.loadTFLiteModel('models/efficientB0_Affect.tflite');
+}
+
 function openCVReady() {
   cv['onRuntimeInitialized']=()=>{
     // do all your work here
@@ -35,7 +39,7 @@ function openCVReady() {
         classifier.load(faceCascadeFile);
         console.log("Cascade XML Loaded");
     });
-    const emotionModel = tflite.loadTFLiteModel('models/efficientB0_Affect.tflite');
+    const emotionModel = loadModel();
     function processVideo() {
         let begin = Date.now();
         cap.read(src);
