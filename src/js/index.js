@@ -60,10 +60,17 @@ function openCVReady() {
                 cv.cvtColor(roiSrc, sample, cv.COLOR_RGBA2RGB, 0);
                 cv.resize(sample, resizedImage, dsize, 0, 0, cv.INTER_AREA);
 
+                // let inputTensor = tf.reshape(tf.tensor(resizedImage.data), [1,224,224,3]);
 
-                let inputTensor = tf.tensor(resizedImage.data)
-                inputTensor = tf.reshape(inputTensor, [1,224,224,3]);
-                let outputTensor = emotionModel.predict(inputTensor);
+                // let outputTensor = emotionModel.predict(inputTensor);
+                const outputTensor = tf.tidy(() => {
+                    // Get pixels data from an image.
+                    let inputTensor = tf.reshape(tf.tensor(resizedImage.data), [1,224,224,3]);
+                    // Run the inference.
+                    let outputTensor = tfliteModel.predict(inputTensor);
+                    // De-normalize the result.
+                    return outputTensor
+                });
                 console.log(outputTensor);
                 let point1 = new cv.Point(face.x, face.y);
                 let point2 = new cv.Point(face.x + face.width, face.y + face.height);
