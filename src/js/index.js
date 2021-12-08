@@ -37,7 +37,7 @@ function openCVReady() {
     });
     var emotionModel = '';
     
-    tflite.loadTFLiteModel('models/efficientB0_Affect.tflite').then((loadedModel) => {
+    tf.loadLayersModel('models/js/efficientB0_Affect/model.json').then((loadedModel) => {
       emotionModel = loadedModel;
   });
 
@@ -67,8 +67,7 @@ function openCVReady() {
                     // Get pixels data from an image.
                     let inputTensor = tf.reshape(tf.tensor(resizedImage.data), [1,224,224,3]);
                     // Run the inference.
-                    let outputTensor = tfliteModel.predict(inputTensor);
-                    // De-normalize the result.
+                    let outputTensor = emotionModel.predict(inputTensor);
                     return outputTensor
                 });
                 console.log(outputTensor);
