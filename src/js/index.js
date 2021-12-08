@@ -41,6 +41,17 @@ function openCVReady() {
       emotionModel = loadedModel;
   });
 
+    var mapper = {
+        0: 'Neutral',
+        1: 'Happy',
+        2: 'Sad',
+        3: 'Surprise',
+        4: 'Fear',
+        5: 'Disgust',
+        6: 'Anger',
+        7: 'Contempt'
+             };
+
     function processVideo() {
         let begin = Date.now();
         cap.read(src);
@@ -65,15 +76,19 @@ function openCVReady() {
                 // let outputTensor = emotionModel.predict(inputTensor);
                 const outputTensor = tf.tidy(() => {
                     // Get pixels data from an image.
-                    let inputTensor = tf.reshape(tf.tensor(resizedImage.data), [1,224,224,3]);
+                    let inputTensor = tf.cast(tf.reshape(tf.tensor(resizedImage.data), [1,224,224,3]), 'float32');
                     // Run the inference.
                     let outputTensor = emotionModel.predict(inputTensor);
                     return outputTensor
                 });
-                console.log(outputTensor);
+
+                let pred = outputTensor[1].argMax(axis=1).arraySync()[0]
+                let emotionLabel = mapper[pred]
+                //console.log(emotionLabel)
                 let point1 = new cv.Point(face.x, face.y);
                 let point2 = new cv.Point(face.x + face.width, face.y + face.height);
                 cv.rectangle(dst, point1, point2, [255, 0, 0, 255]);
+                cv.putText(dst, emotionLabel, (face.x, face.yy-10), cv.FONT_HERSHEY_SIMPLEX, 0.9, (255,0,255), 2);
             }
         } catch(error) {
         // console.error(error)
