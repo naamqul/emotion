@@ -37,7 +37,7 @@ function openCVReady() {
     });
     var emotionModel = '';
     
-    tf.loadLayersModel('models/js/efficientB0_Affect/model.json').then((loadedModel) => {
+    tf.loadLayersModel('models/js/efficientB0_Affect_Graph/model.json').then((loadedModel) => {
       emotionModel = loadedModel;
   });
 
