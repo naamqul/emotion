@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Emotion Recognition</title>
+  <title>AI Emotion Recognition</title>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +32,7 @@
         </ul>
     </li>
     <li>
-        <h5><strong>architecture + data</strong>: efficientNetB0 base pretrained on imagenet with 2 fully-connected layers and 3 output heads trained and finetuned on AffectNet8 (~290,000 Images).</h5>
+        <h5><strong>neural architecture + data</strong>: efficientNetB0 base pretrained on imagenet with 2 fully-connected layers and 3 output heads trained and finetuned on AffectNet8 (~290,000 Images).</h5>
     </li>
     <li>
         <h5><strong>deployment:</strong> keras model has been converted to a tensorflow js model (~80mb). website is in vanilla javascript and html. everything is running client-side and in browser so no data is collected (no backend server being used!). opencv was used for bounding boxes (haar cascade) to crop in on faces.</h5 >
