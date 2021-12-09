@@ -29,7 +29,7 @@ function openCVReady() {
     let utils = new Utils("errorMessage")
 
     let classifier = new cv.CascadeClassifier();
-    let faceCascadeFile = 'haarcascade_frontalface_default.xml';
+    let faceCascadeFile = 'src/js/haarcascade_frontalface_default.xml';
 
     utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
         classifier.load(faceCascadeFile);
