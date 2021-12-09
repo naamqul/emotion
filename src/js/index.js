@@ -87,9 +87,9 @@ function openCVReady() {
                 let confidence = Math.round((100*outputTensor[1].arraySync()[0][pred] + Number.EPSILON) * 100) / 100
                 let point1 = new cv.Point(face.x, face.y);
                 let point2 = new cv.Point(face.x + face.width, face.y + face.height);
-                cv.rectangle(dst, point1, point2, [255, 0, 0, 255], 2);
+                cv.rectangle(dst, point1, point2, [236, 64, 122, 255], 2);
                 cv.putText(dst, emotionLabel + ': ' + confidence + '%', new cv.Point(face.x, face.y-10),
-                 cv.FONT_HERSHEY_SIMPLEX, 0.9, [255,0,255, 0], 2);
+                 cv.FONT_HERSHEY_SIMPLEX, 0.9, [236, 64, 122, 255], 2);
             }
         } catch(error) {
         // console.error(error)
