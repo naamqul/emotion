@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>opencv.js sandbox</title>
-    <meta charset="UTF-8" />
-    <script src="https://docs.opencv.org/master/opencv.js"></script>
-    <script src="https://docs.opencv.org/master/utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
-    <script src="src/js/index.js"></script>
-  </head>
+<head>
+  <title>Emotion Recognition</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <body>
-    <div>
-      <video type = "hidden" width= "720" height="480" id="videoInput"></video>
-      <canvas width = "720" height="480" id="canvas"></canvas>
-    </div>
-    <script type="text/javascript">openCVReady()</script>
-  </body>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script src="https://docs.opencv.org/master/opencv.js"></script>
+  <script src="https://docs.opencv.org/master/utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+  <script src="src/js/index.js"></script>
+</head>
+
+<body class="bg-info">
+
+  <div class = "container">
+   <h1 class="center-block">Emotion Recognition</h1>
+   <canvas width = "960" height="720" id="canvas" class="center-block bg-dark">
+    <video type = "hidden" width= "960" height="720" id="videoInput"></video>
+  </canvas>
+  <h4>methodology: multi-task transfer learning approach to predict valence [-1,1], arousal [-1, 1], and 8 emotion labels.</h4>
+  <h4>architecture + data: efficientNetB0 base pretrained on imagenet with 2 fully-connected layers and 3 output heads trained and finetuned on AffectNet8 (~290,000 Images).</h4>
+  <h4>everything is running client-side in browser so no data is collected. opencv used for bounding boxes (haar cascade)</h4>
+</div>
+<script type="text/javascript">openCVReady()</script>
+</body>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </html>
