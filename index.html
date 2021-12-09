@@ -17,14 +17,27 @@
 <body class="bg-info">
 
   <div class = "container">
-   <h1 class="center-block">Emotion Recognition <a href='https://github.com/naamqul/emotion' target="_blank" rel="noopener noreferrer">(GitHub)</a></h1>
-   <h5>*** it may take a few seconds to start predictions depending on your hardware ***</h5>
+   <h1 class="center-block">Emotion Recognition - From Scratch! &#128528&#128512&#128542&#128551&#128561&#129314&#129324&#129320<a href='https://github.com/naamqul/emotion' target="_blank" rel="noopener noreferrer">(GitHub)</a></h1>
+   <h5>*** it may take a few seconds to start predictions depending on your hardware - please only run on Desktop. Lower latency solutions in progress ***</h5>
    <canvas width = "960" height="720" id="canvas" class="center-block bg-dark">
     <video type = "hidden" width= "960" height="720" id="videoInput"></video>
   </canvas>
-  <h4>methodology: multi-task transfer learning approach to predict valence [-1,1], arousal [-1, 1], and 8 emotion labels.</h4>
-  <h4>architecture + data: efficientNetB0 base pretrained on imagenet with 2 fully-connected layers and 3 output heads trained and finetuned on AffectNet8 (~290,000 Images).</h4>
-  <h4>everything is running client-side in browser so no data is collected. opencv used for bounding boxes (haar cascade)</h4>
+  <ul>
+    <li>
+        <h5><strong>methodology:</strong> multi-task transfer learning approach to predict valence [-1,1], arousal [-1, 1], and 8 emotion labels <em>[neutral, happy, sad, surprise, fear, disgust, anger, contempt]</em></h5>
+        <ul>
+            <li>
+                <h5>valence + arousal only used for multi-task knowledge distillation purposes and not currently implemented in current predictions.</h5>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <h5><strong>architecture + data</strong>: efficientNetB0 base pretrained on imagenet with 2 fully-connected layers and 3 output heads trained and finetuned on AffectNet8 (~290,000 Images).</h5>
+    </li>
+    <li>
+        <h5><strong>deployment:</strong> keras model has been converted to a tensorflow js model (~80mb). website is in vanilla javascript and html. everything is running client-side and in browser so no data is collected (no backend server being used!). opencv was used for bounding boxes (haar cascade) to crop in on faces.</h5>
+    </li>
+</ul>
 </div>
 <script type="text/javascript">openCVReady()</script>
 </body>
