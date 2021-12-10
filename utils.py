@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
-import cv2
 
 class EmotionPredictor():
     def __init__(self, path = "models/efficientB0_Affect.tflite"):
@@ -14,7 +13,6 @@ class EmotionPredictor():
         self.output_details = self.interpreter.get_output_details()
     
     def process(self, image):
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = tf.image.resize(image, (224,224), preserve_aspect_ratio=True)
         image = np.reshape(image, (1, 224, 224, 3))
         return image

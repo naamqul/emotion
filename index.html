@@ -32,10 +32,22 @@
         </ul>
     </li>
     <li>
-        <h5><strong>neural network architecture + data</strong>: efficientNetB0 base pretrained on imagenet with 2 fully-connected layers and 3 output heads trained and finetuned on <a href='http://mohammadmahoor.com/affectnet/'>AffectNet8</a> (~290,000 Images).</h5>
+        <h5><strong>neural network architecture</strong>: NasNetMobile base pretrained on imagenet followed by a shared fully-connected layer (dense0). following dense0, valence and arousal heads each have their own fully-connected layers with relu followed by a linear output layer. expression head has a skip connection combining the aforementioned dense layers followed by a softmax output for classification. see below for more information:</h5>
+        <ul>
+            <li>
+                <h5>valence head: base ->  dense0 -> dense1 -> linear output</h5>
+            </li>
+            <li>
+                <h5>arousal head: base -> dense0 -> dense2 -> linear output</h5>
+            </li>
+            <li>
+                <h5>expression head: base -> [dense0 + concat(dense1, dense2)] -> softmax layer</h5>
+            </li>
+        </ul>
     </li>
+    <li><strong>data + training:</strong> <a href='http://mohammadmahoor.com/affectnet/'>AffectNet8</a> dataset was used for training (~290,000 Images) using an image generator for creating random augmentations (crop, shift, etc..). model was trained using 85% of training data. early stopping was used with a 15% validation set to prevent overfitting. first trained for 5 (+ 1  patience) epochs with a frozen base and then finetuned for 16 (+ 3 patience) epochs. model also used batch normalization, dropout, l2 regularization as well.</li>
     <li>
-        <h5><strong>deployment:</strong> keras model has been converted to a tensorflow js model (~80mb). website is in vanilla javascript and html. everything is running client-side and in browser so no data is collected (no backend server being used!). opencv was used for bounding boxes (haar cascade) to crop in on faces.</h5 >
+        <h5><strong>deployment:</strong> keras model (~60mb) has been converted to a tensorflow js graph model (~10mb) with float16 quantization. website is in vanilla javascript and html. everything is running client-side and in browser so no data is collected (no backend server being used!). opencv was used for bounding boxes (haar cascade) to crop in on faces.</h5 >
     </li>
 </ul>
 </div>
