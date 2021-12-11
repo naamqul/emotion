@@ -94,7 +94,7 @@ function openCVReady() {
                 }
 
                 confidence = confidence*100;
-                confidence = confidence.toFixed();
+                confidence = confidence.toFixed(2);
                 let emotionLabel = mapper[maxIndex];
 
                 let point1 = new cv.Point(face.x, face.y);
