@@ -45,7 +45,9 @@
             </li>
         </ul>
     </li>
-    <li><h5>strong>data + training:</strong> <a href='http://mohammadmahoor.com/affectnet/'>AffectNet8</a> dataset was used for training (~290,000 Images) using an image generator for creating random augmentations (crop, shift, etc..). model was trained using 85% of training data. early stopping was used with a 15% validation set to prevent overfitting. first trained for 5 (+ 1  patience) epochs with a frozen base and then finetuned for 16 (+ 3 patience) epochs. model also used batch normalization, dropout, l2 regularization as well.</h5></li>
+    <li>
+        <h5><strong>data + training:</strong> <a href='http://mohammadmahoor.com/affectnet/'>AffectNet8</a> dataset was used for training (~290,000 Images) using an image generator for creating random augmentations (crop, shift, etc..). model was trained using 85% of training data. early stopping was used with a 15% validation set to prevent overfitting. first trained for 5 (+ 1  patience) epochs with a frozen base and then finetuned for 16 (+ 3 patience) epochs. model also used batch normalization, dropout, l2 regularization as well.</h5>
+    </li>
     <li>
         <h5><strong>deployment:</strong> keras model (~60mb) has been converted to a tensorflow js graph model (~10mb) with float16 quantization. website is in vanilla javascript and html. everything is running client-side and in browser so no data is collected (no backend server being used!). opencv was used for bounding boxes (haar cascade) to crop in on faces.</h5 >
     </li>
