@@ -82,7 +82,7 @@ function openCVReady() {
                     return outputTensor
                 });
 
-                let pred = outputTensor[0].arraySync()
+                let pred = outputTensor[0].arraySync()[0]
                 var confidence = pred[0]
                 var maxIndex = 0;
 
