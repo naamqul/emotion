@@ -82,9 +82,21 @@ function openCVReady() {
                     return outputTensor
                 });
 
-                let pred = outputTensor[1].argMax(axis=1).arraySync()[0]
-                let emotionLabel = mapper[pred]
-                let confidence = Math.round((100*outputTensor[1].arraySync()[0][pred] + Number.EPSILON) * 100) / 100
+                let pred = outputTensor[0].arraySync()
+                var confidence = pred[0]
+                var maxIndex = 0;
+
+                for (var pos = 1; pos < pred.length; pos++) {
+                    if (pred[pos] > confidence) {
+                        maxIndex = pos;
+                        confidence = pred[pos];
+                    }
+                }
+
+                confidence = confidence*100;
+                confidence = confidence.toFixed();
+                let emotionLabel = mapper[maxIndex];
+
                 let point1 = new cv.Point(face.x, face.y);
                 let point2 = new cv.Point(face.x + face.width, face.y + face.height);
                 cv.rectangle(dst, point1, point2, [236, 64, 122, 255], 2);
