@@ -16,7 +16,7 @@ function openCVReady() {
     video.style.display = "none"
 
     //Initialize Necessary Variables
-    const FPS = 30
+    const FPS = 60
     let height = video.height
     let width = video.width
 
