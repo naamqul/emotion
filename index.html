@@ -27,7 +27,10 @@
         <h5><strong>methodology:</strong> multi-task transfer learning approach to predict valence [-1,1], arousal [-1, 1], and 8 emotion labels <em>[neutral, happy, sad, surprise, fear, disgust, anger, contempt]</em></h5>
         <ul>
             <li>
-                <h5>valence + arousal used for multi-task knowledge distillation purposes and not currently implemented in current predictions.</h5>
+                <h5>valence and arousal are proxies for determining overall emotional state. goal of this methodology was to coerce/ influence the neural network to learn emotion <strong>through</strong> valence and arousal as opposed to solely learning emotion directly. by creating a interdependency between valence, arousal, and emotion, we can explore how overall performance on these related tasks changes due to collinearity.</h5>
+            </li>
+            <li>
+                <h5>note: valence + arousal used for multi-task knowledge distillation purposes and not currently implemented in current predictions.</h5>
             </li>
         </ul>
     </li>
